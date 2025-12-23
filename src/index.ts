@@ -12,4 +12,4 @@ export * from './hooks'
 export * from './helpers'
 
 // Types
-export * from './types'
+export type * from './types'
