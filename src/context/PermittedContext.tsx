@@ -1,4 +1,5 @@
-import { createContext, useContext, useMemo, ReactNode } from 'react'
+import { createContext, useContext, useMemo } from 'react'
+import type { ReactNode, ReactElement } from 'react'
 
 import { useResolvedPermissions } from '../hooks'
 import type { RolePermissions, Permissions, PermissionsTree } from '../types'
@@ -24,16 +25,16 @@ export const PermittedProvider = <R extends string, T extends PermissionsTree>({
   permissions,
   rolePermissions,
   activeRoles,
-}: ProviderProps<R, T>) => {
+}: ProviderProps<R, T>): ReactElement => {
   type P = Permissions<T>
 
   const allConcrete = useResolvedPermissions<R, T>({ permissions, rolePermissions, activeRoles })
 
   const value: PermittedContextValue<P> = useMemo(() => {
-    const hasPermission = (permission: P) => allConcrete.has(permission)
-    const hasEveryPermission = (permissionsToCheck: readonly P[]) =>
+    const hasPermission = (permission: P): boolean => allConcrete.has(permission)
+    const hasEveryPermission = (permissionsToCheck: readonly P[]): boolean =>
       permissionsToCheck.every(allConcrete.has, allConcrete)
-    const hasSomePermission = (permissionsToCheck: readonly P[]) =>
+    const hasSomePermission = (permissionsToCheck: readonly P[]): boolean =>
       permissionsToCheck.some(allConcrete.has, allConcrete)
 
     return { hasPermission, hasEveryPermission, hasSomePermission, allConcrete }

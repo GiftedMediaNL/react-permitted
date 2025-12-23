@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 import { usePermitted } from '../context/PermittedContext'
 
@@ -12,7 +12,7 @@ type PermittedProps<P extends string> =
   | (BaseProps & { some: readonly P[] })
   | (BaseProps & { every: readonly P[] })
 
-export const Permitted = <P extends string>(props: PermittedProps<P>) => {
+export const Permitted = <P extends string>(props: PermittedProps<P>): ReactNode | null  => {
   const { hasPermission, hasSomePermission, hasEveryPermission } = usePermitted<P>()
 
   if ('permission' in props) {
