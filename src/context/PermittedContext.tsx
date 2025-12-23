@@ -1,6 +1,6 @@
 import { createContext, useContext, useMemo, ReactNode } from 'react'
 
-import { impliedReads, resolvePermissions, permissionsFromTree, useResolvedPermissions } from '../helpers'
+import { useResolvedPermissions } from '../hooks'
 import type { RolePermissions, Permissions, PermissionsTree } from '../types'
 
 export type PermittedContextValue<P extends string> = {
@@ -10,7 +10,7 @@ export type PermittedContextValue<P extends string> = {
   allConcrete: ReadonlySet<P>
 }
 
-const PermittedContext = createContext<PermittedContextValue<string> | null>(null)
+export const PermittedContext = createContext<PermittedContextValue<string> | null>(null)
 
 export type ProviderProps<R extends string, T extends PermissionsTree> = {
   children: ReactNode

@@ -106,8 +106,8 @@ users.* grants users.read, users.profilePicture.write, etc.
 ### Implied reads
 When a user has something.write, they also get something.read automatically.
 
-## API
-### Provider
+# API
+## Provider
 ```PermittedProvider```
 
 Props:
@@ -129,7 +129,70 @@ export type ProviderProps<R extends string, T extends PermissionsTree> = {
 }
 ```
 
-### Hooks
+## Components
+```<Permitted<P>>```
+
+```<Permitted />``` is a declarative way to conditionally render UI based on permissions.
+It prevents repetitive inline checks like:
+
+```tsx
+if (!hasPermission('users.profilePicture.write')) return null
+```
+
+and replaces them with a readable component.
+### Basic usage
+```typescript
+import { Permitted } from 'react-permitted'
+
+<Permitted permission="users.profilePicture.write">
+  <button>Upload profile picture</button>
+</Permitted>
+```
+The children will only render if the user has the given permission.
+
+### Multiple permissions
+You can require all or some permissions.
+* every: user must have all permissions
+* some: user must have at least one permission
+
+```tsx
+<Permitted every={['users.write', 'calendar.write']}>
+  <AdminActions />
+</Permitted>
+```
+
+```tsx
+<Permitted some={['users.write', 'calendar.write']}>
+  <EditorActions />
+</Permitted>
+```
+
+## Routing
+```RequireRoutePermission```
+
+```RequireRoutePermission``` is a small React Router v6 wrapper that protects nested routes.
+If the current user does not have the required permission, it redirects to redirectPath.
+
+```typescript
+import { Route } from 'react-router-dom'
+import { RequireRoutePermission } from 'react-permitted'
+
+<Route element={<RequireRoutePermission<Permission> permission="users.write" redirectPath="/404"} />}>
+  <Route path="/admin" element={<AdminPage />} />
+  <Route path="/admin/users" element={<UsersPage />} />
+</Route>
+```
+If the user has the permission, the component renders an ```<Outlet />``` and the nested routes will render normally.
+
+### Props
+* permission (required): The concrete permission required to access the route.
+* redirectPath (optional, default: '/dashboard'): Where to redirect when the user is not permitted.
+
+### Notes
+* This component requires ```react-router-dom``` v6.
+* Use ```RequireRoutePermission``` for route-level protection. Use ```<Permitted />``` for conditional rendering inside pages.
+
+## Hooks
 ```usePermitted<P>()```
 
 Found in the context of a PermittedProvider, gives access to permission checking functions.
@@ -176,6 +239,15 @@ Map of role to granted permissions. Wildcards are always allowed.
 ```typescript
 type RolePermissions<R extends string, P extends string> = Readonly<Record<R, readonly (P | `${string}.*`)[]>>
 ```
+
+```RolePermissionsMap```
+
+Map of role to resolved concrete permissions.
+
+```typescript
+type RolePermissionsMap = RolePermissions<string, string>
+```
+
 
 ## Helpers
 ```permissionsFromTree(tree)```
