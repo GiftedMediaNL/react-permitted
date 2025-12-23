@@ -32,17 +32,15 @@ export const impliedReads = <P extends string>(grants: ReadonlySet<P>): Readonly
 }
 
 /**
-  * @resolvePermissions
-  * Given all possible permissions and a set of granted permissions (which may include wildcards),
-  * return the full set of concrete permissions that are granted.
+ * @resolvePermissions
+ * Given all possible permissions and a set of granted permissions (which may include wildcards),
+ * return the full set of concrete permissions that are granted.
  */
 export const resolvePermissions = <P extends string>(
   allPermissions: readonly P[],
   granted: readonly PermissionOrWildcard<P>[]
 ): ReadonlySet<P> => {
-  const resolved = allPermissions.filter((permission) =>
-    granted.some((p) => matchesPermission(p, permission))
-  )
+  const resolved = allPermissions.filter((permission) => granted.some((p) => matchesPermission(p, permission)))
 
   return new Set<P>(resolved)
 }
