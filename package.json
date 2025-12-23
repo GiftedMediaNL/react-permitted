@@ -8,16 +8,24 @@
     "type": "git",
     "url": "git+https://github.com/GiftedMediaNL/react-permitted.git"
   },
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
   "files": [
     "dist",
     "README.md",
     "LICENSE"
   ],
-  "keywords": [],
-  "type": "module",
+  "keywords": ["react", "permissions", "rbac", "authorization", "typescript"],
+  "sideEffects": false,
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
@@ -30,7 +38,12 @@
   "peerDependencies": {
     "react": ">=18.0.0 <19.3.0",
     "react-dom": ">=18.0.0 <19.3.0",
-    "react-router-dom": "7.11.0"
+    "react-router-dom": ">=7.0.0 <8.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react-router-dom": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@eslint/js": "9.39.2",
