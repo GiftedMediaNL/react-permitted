@@ -1,0 +1,16 @@
+.DS_Store
+.run
+.idea
+
+node_modules
+
+# App
+.env
+.env.*
+
+# tsc builds
+esm
+build
+dist
+*.log
+*.tgz
