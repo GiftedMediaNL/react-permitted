@@ -20,7 +20,7 @@ Start with creating your permission tree. This gives you:
 * A strongly typed union of all concrete permissions via Permissions<typeof PERMISSION_TREE>
 
 ```typescript
-import type { PermissionsTree } from 'react-permitted'
+import type { Permissions, PermissionsTree } from 'react-permitted'
 
 export const PERMISSION_TREE = {
   users: {
@@ -42,12 +42,12 @@ export type Permission = Permissions<typeof PERMISSION_TREE>
 
 ### 2) Define role permissions
 Next, define which permissions each role has. You can use wildcards (*) to give access to all sub-permissions.
+You can do this in the same permitted.ts file.
 
 ```typescript
-import type { RolePermissions } from 'react-permitted'
-import { Permissions } from 'react-permitted'
+import type { RolePermissions, Permissions } from 'react-permitted'
 
-export type Role = 'admin' | 'user'
+export type Role = 'admin' | 'helpdesk'
 
 export const ROLE_PERMISSIONS = {
   'admin': ['users.*', 'calendar.*'],
