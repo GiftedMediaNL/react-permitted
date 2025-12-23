@@ -1,6 +1,6 @@
 {
   "name": "react-permitted",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Simple, composable permission checks for React",
   "license": "MIT",
   "author": "Bart-Jan van Hummel",
@@ -29,7 +29,13 @@
     "README.md",
     "LICENSE"
   ],
-  "keywords": ["react", "permissions", "rbac", "authorization", "typescript"],
+  "keywords": [
+    "react",
+    "permissions",
+    "rbac",
+    "authorization",
+    "typescript"
+  ],
   "sideEffects": false,
   "scripts": {
     "build": "tsup",
