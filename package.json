@@ -1,6 +1,6 @@
 {
   "name": "react-permitted",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Simple, composable permission checks for React",
   "license": "MIT",
   "author": "Bart-Jan van Hummel",
