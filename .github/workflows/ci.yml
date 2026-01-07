@@ -1,10 +1,14 @@
 name: CI
-
+permissions: read-all
 on:
   pull_request:
     branches: [master]
   push:
     branches: [master]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
