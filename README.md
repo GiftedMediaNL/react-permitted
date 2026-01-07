@@ -142,9 +142,9 @@ export type ProviderProps<R extends string, T extends PermissionsTree> = {
 
 ## Components
 
-`<Permitted<P>>`
+`<ShowIfPermitted<P>>`
 
-`<Permitted />` is a declarative way to conditionally render UI based on permissions.
+`<ShowIfPermitted />` is a declarative way to conditionally render UI based on permissions.
 It prevents repetitive inline checks like:
 
 ```tsx
@@ -156,11 +156,11 @@ and replaces them with a readable component.
 ### Basic usage
 
 ```typescript
-import { Permitted } from 'react-permitted'
+import { ShowIfPermitted } from 'react-permitted'
 
-<Permitted permission="users.profilePicture.write">
+<ShowIfPermitted permission="users.profilePicture.write">
   <button>Upload profile picture</button>
-</Permitted>
+</ShowIfPermitted>
 ```
 
 The children will only render if the user has the given permission.
@@ -173,15 +173,15 @@ You can require all or some permissions.
 - some: user must have at least one permission
 
 ```tsx
-<Permitted every={['users.write', 'calendar.write']}>
+<ShowIfPermitted every={['users.write', 'calendar.write']}>
   <AdminActions />
-</Permitted>
+</ShowIfPermitted>
 ```
 
 ```tsx
-<Permitted some={['users.write', 'calendar.write']}>
+<ShowIfPermitted some={['users.write', 'calendar.write']}>
   <EditorActions />
-</Permitted>
+</ShowIfPermitted>
 ```
 
 ## Routing
@@ -189,13 +189,13 @@ You can require all or some permissions.
 `RequireRoutePermission`
 
 `RequireRoutePermission` is a small React Router v6 wrapper that protects nested routes.
-If the current user does not have the required permission, it redirects to redirectPath.
+If the current user does not have the required permission, it redirects to the path given in redirectIfDeniedTo.
 
 ```typescript
 import { Route } from 'react-router-dom'
 import { RequireRoutePermission } from 'react-permitted'
 
-<Route element={<RequireRoutePermission<Permission> permission="users.write" redirectPath="/404"} />}>
+<Route element={<RequireRoutePermission<Permission> permission="users.write" redirectIfDeniedTo="/404"} />}>
   <Route path="/admin" element={<AdminPage />} />
   <Route path="/admin/users" element={<UsersPage />} />
 </Route>
@@ -206,12 +206,12 @@ If the user has the permission, the component renders an `<Outlet />` and the ne
 ### Props
 
 - permission (required): The concrete permission required to access the route.
-- redirectPath (optional, default: '/dashboard'): Where to redirect when the user is not permitted.
+- redirectIfDeniedTo (optional, default: '/dashboard'): Where to redirect when the user is not permitted.
 
 ### Notes
 
 - This component requires `react-router-dom` v6.
-- Use `RequireRoutePermission` for route-level protection. Use `<Permitted />` for conditional rendering inside pages.
+- Use `RequireRoutePermission` for route-level protection. Use `<ShowIfPermitted />` for conditional rendering inside pages.
 
 ## Hooks
 

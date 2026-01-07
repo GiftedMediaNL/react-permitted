@@ -12,7 +12,7 @@ type PermittedProps<P extends string> =
   | (BaseProps & { some: readonly P[] })
   | (BaseProps & { every: readonly P[] })
 
-export const Permitted = <P extends string>(props: PermittedProps<P>): ReactNode | null  => {
+export const ShowIfPermitted = <P extends string>(props: PermittedProps<P>): ReactNode | null  => {
   const { hasPermission, hasSomePermission, hasEveryPermission } = usePermitted<P>()
 
   if ('permission' in props) {
