@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.3
+
+### Patch Changes
+
+- 52ac678: changelog workflow update
+
 ## 1.1.2
 
 ### Patch Changes
