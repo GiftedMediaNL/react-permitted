@@ -312,3 +312,5 @@ export const ROLE_PERMISSIONS = { ... } as const satisfies RolePermissions<Role,
 ## License
 
 MIT
+
+See CHANGELOG.md for version history.
