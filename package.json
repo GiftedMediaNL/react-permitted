@@ -45,6 +45,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "prepublishOnly": "pnpm build",
+    "release": "changeset publish",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage"
