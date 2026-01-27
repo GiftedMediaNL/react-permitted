@@ -8,6 +8,9 @@
     "type": "git",
     "url": "git+https://github.com/GiftedMediaNL/react-permitted.git"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
